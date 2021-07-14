@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shorIid from 'shortid';
 
 import styles from './FeedbackOptions.module.css';
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <div>
-      {options.map(({ id, label }) => (
+      {options.map(option => (
         <button
           type="button"
-          key={id}
+          key={shorIid.generate()}
           className={styles.btn}
-          onClick={() => onLeaveFeedback(label)}
+          onClick={() => onLeaveFeedback(option)}
         >
-          {label}
+          {option}
         </button>
       ))}
     </div>

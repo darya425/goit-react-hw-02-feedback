@@ -6,8 +6,6 @@ import Statistics from './Components/Statistics';
 import Section from './Components/Section';
 import Notification from './Components/Notification';
 
-import buttons from './buttons.json';
-
 class App extends Component {
   state = {
     good: 0,
@@ -21,27 +19,25 @@ class App extends Component {
     }));
   };
 
-  countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    const total = neutral + good + bad;
-
-    return total;
-  };
+  countTotalFeedback = () =>
+    Object.values(this.state).reduce((acc, feedback) => acc + feedback, 0);
 
   countPositiveFeedbackPercentage = () => {
-    const { good, neutral, bad } = this.state;
-    const total = neutral + good + bad;
+    const { good } = this.state;
+    const total = this.countTotalFeedback();
 
     return Math.round((good * 100) / total) + '%';
   };
 
   render() {
+    const options = Object.keys(this.state);
+
     return (
       <Layout>
-        <h1>Kафе Expresso</h1>
+        <h1>Kафе Espresso</h1>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={buttons}
+            options={options}
             onLeaveFeedback={this.setLeaveFeedback}
           />
         </Section>
